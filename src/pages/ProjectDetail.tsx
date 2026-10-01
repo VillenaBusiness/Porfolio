@@ -1,0 +1,10 @@
+import { Link, useParams } from 'react-router-dom'
+import { Seo } from '../components/Seo'
+import { projects } from '../data/projects'
+
+export function ProjectDetail() {
+  const { slug } = useParams()
+  const project = projects.find((item) => item.slug === slug)
+  if (!project) return <section className="py-32"><h1 className="font-display text-5xl">Project not found.</h1><Link className="mt-8 inline-block underline" to="/projects">Back to work</Link></section>
+  return <><Seo title={project.title} description={project.shortDescription} /><article className="py-16 md:py-24"><Link to="/projects" className="text-sm text-ink/55 hover:text-ink">← All work</Link><div className="mt-12 grid gap-12 md:grid-cols-[1.3fr_0.7fr] md:items-end"><div><p className="label mb-6 text-coral">{project.category} / {project.year}</p><h1 className="max-w-4xl font-display text-6xl font-medium leading-none tracking-tight md:text-8xl">{project.title}<span className="text-coral">.</span></h1></div><p className="text-lg leading-relaxed text-ink/65">{project.description}</p></div>{project.image && <img src={project.image} alt={`${project.title} project preview`} className="mt-16 aspect-[16/8] w-full object-cover" />}<div className="mt-16 grid gap-12 border-t border-ink/15 pt-10 md:grid-cols-[1fr_2fr]"><div><p className="label text-coral">Details</p><p className="mt-3 text-ink/60">{project.status ?? 'Selected project'}</p></div><div className="grid gap-10 sm:grid-cols-2"><div><h2 className="font-display text-xl">Capabilities</h2><ul className="mt-4 space-y-2 text-ink/65">{project.technologies.map((technology) => <li key={technology}>{technology}</li>)}</ul></div>{project.highlights && <div><h2 className="font-display text-xl">Highlights</h2><ul className="mt-4 space-y-2 text-ink/65">{project.highlights.map((highlight) => <li key={highlight}>{highlight}</li>)}</ul></div>}</div></div>{project.gallery && <div className="mt-16 grid gap-6 md:grid-cols-2">{project.gallery.map((image) => <img key={image} src={image} alt="" className="aspect-[4/3] w-full object-cover" />)}</div>}</article></>
+}

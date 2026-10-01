@@ -1,0 +1,10 @@
+import { Link } from 'react-router-dom'
+import { Seo } from '../components/Seo'
+import { Section } from '../components/Section'
+import { ProjectGrid } from '../components/ProjectGrid'
+import { profile } from '../data/profile'
+import { projects } from '../data/projects'
+
+export function Home() {
+  return <><Seo /><section className="grid min-h-[70vh] items-center gap-12 py-16 md:grid-cols-[1.1fr_0.9fr] md:py-24"><div><p className="label mb-8 text-coral">Independent designer / developer</p><h1 className="max-w-4xl font-display text-5xl font-medium leading-[0.98] tracking-[-0.04em] text-ink md:text-8xl">{profile.headline}</h1><p className="mt-8 max-w-lg text-lg leading-relaxed text-ink/65">{profile.description}</p><div className="mt-10 flex flex-wrap items-center gap-6"><Link to="/projects" className="button-primary">Explore selected work <span aria-hidden="true">↗</span></Link><span className="text-sm text-ink/50">{profile.location}</span></div></div><div className="relative mx-auto w-full max-w-sm md:justify-self-end"><div className="aspect-[4/5] bg-sage p-5"><img src={projects[0].image} alt="" className="h-full w-full object-cover" /></div><p className="mt-4 max-w-[15rem] text-sm leading-relaxed text-ink/50">Currently shaping better ways for people and teams to work together.</p></div></section><Section eyebrow="Selected work" title="A few things I have helped bring into the world."><ProjectGrid projects={projects.filter((project) => project.featured)} /></Section><section className="border-t border-ink/15 py-16 md:py-24"><div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between"><h2 className="max-w-2xl font-display text-4xl leading-tight text-ink md:text-6xl">Have a thoughtful problem to solve?</h2><Link to="/contact" className="button-secondary">Let's talk <span aria-hidden="true">↗</span></Link></div></section></>
+}
